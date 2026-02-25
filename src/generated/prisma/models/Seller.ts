@@ -232,7 +232,6 @@ export type SellerWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Seller"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   meals?: Prisma.MealListRelationFilter
-  orders?: Prisma.OrderListRelationFilter
 }
 
 export type SellerOrderByWithRelationInput = {
@@ -249,7 +248,6 @@ export type SellerOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   meals?: Prisma.MealOrderByRelationAggregateInput
-  orders?: Prisma.OrderOrderByRelationAggregateInput
 }
 
 export type SellerWhereUniqueInput = Prisma.AtLeast<{
@@ -269,7 +267,6 @@ export type SellerWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Seller"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   meals?: Prisma.MealListRelationFilter
-  orders?: Prisma.OrderListRelationFilter
 }, "id" | "userId">
 
 export type SellerOrderByWithAggregationInput = {
@@ -319,7 +316,6 @@ export type SellerCreateInput = {
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutSellersInput
   meals?: Prisma.MealCreateNestedManyWithoutSellerInput
-  orders?: Prisma.OrderCreateNestedManyWithoutSellerInput
 }
 
 export type SellerUncheckedCreateInput = {
@@ -335,7 +331,6 @@ export type SellerUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   meals?: Prisma.MealUncheckedCreateNestedManyWithoutSellerInput
-  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutSellerInput
 }
 
 export type SellerUpdateInput = {
@@ -351,7 +346,6 @@ export type SellerUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutSellersNestedInput
   meals?: Prisma.MealUpdateManyWithoutSellerNestedInput
-  orders?: Prisma.OrderUpdateManyWithoutSellerNestedInput
 }
 
 export type SellerUncheckedUpdateInput = {
@@ -367,7 +361,6 @@ export type SellerUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   meals?: Prisma.MealUncheckedUpdateManyWithoutSellerNestedInput
-  orders?: Prisma.OrderUncheckedUpdateManyWithoutSellerNestedInput
 }
 
 export type SellerCreateManyInput = {
@@ -524,20 +517,6 @@ export type SellerUpdateOneRequiredWithoutMealsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.SellerUpdateToOneWithWhereWithoutMealsInput, Prisma.SellerUpdateWithoutMealsInput>, Prisma.SellerUncheckedUpdateWithoutMealsInput>
 }
 
-export type SellerCreateNestedOneWithoutOrdersInput = {
-  create?: Prisma.XOR<Prisma.SellerCreateWithoutOrdersInput, Prisma.SellerUncheckedCreateWithoutOrdersInput>
-  connectOrCreate?: Prisma.SellerCreateOrConnectWithoutOrdersInput
-  connect?: Prisma.SellerWhereUniqueInput
-}
-
-export type SellerUpdateOneRequiredWithoutOrdersNestedInput = {
-  create?: Prisma.XOR<Prisma.SellerCreateWithoutOrdersInput, Prisma.SellerUncheckedCreateWithoutOrdersInput>
-  connectOrCreate?: Prisma.SellerCreateOrConnectWithoutOrdersInput
-  upsert?: Prisma.SellerUpsertWithoutOrdersInput
-  connect?: Prisma.SellerWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.SellerUpdateToOneWithWhereWithoutOrdersInput, Prisma.SellerUpdateWithoutOrdersInput>, Prisma.SellerUncheckedUpdateWithoutOrdersInput>
-}
-
 export type SellerCreateWithoutUserInput = {
   id?: string
   restaurantName?: string | null
@@ -550,7 +529,6 @@ export type SellerCreateWithoutUserInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   meals?: Prisma.MealCreateNestedManyWithoutSellerInput
-  orders?: Prisma.OrderCreateNestedManyWithoutSellerInput
 }
 
 export type SellerUncheckedCreateWithoutUserInput = {
@@ -565,7 +543,6 @@ export type SellerUncheckedCreateWithoutUserInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   meals?: Prisma.MealUncheckedCreateNestedManyWithoutSellerInput
-  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutSellerInput
 }
 
 export type SellerCreateOrConnectWithoutUserInput = {
@@ -623,7 +600,6 @@ export type SellerCreateWithoutMealsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutSellersInput
-  orders?: Prisma.OrderCreateNestedManyWithoutSellerInput
 }
 
 export type SellerUncheckedCreateWithoutMealsInput = {
@@ -638,7 +614,6 @@ export type SellerUncheckedCreateWithoutMealsInput = {
   isOpen?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutSellerInput
 }
 
 export type SellerCreateOrConnectWithoutMealsInput = {
@@ -669,7 +644,6 @@ export type SellerUpdateWithoutMealsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutSellersNestedInput
-  orders?: Prisma.OrderUpdateManyWithoutSellerNestedInput
 }
 
 export type SellerUncheckedUpdateWithoutMealsInput = {
@@ -684,83 +658,6 @@ export type SellerUncheckedUpdateWithoutMealsInput = {
   isOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  orders?: Prisma.OrderUncheckedUpdateManyWithoutSellerNestedInput
-}
-
-export type SellerCreateWithoutOrdersInput = {
-  id?: string
-  restaurantName?: string | null
-  description?: string | null
-  address?: string | null
-  phoneNumber?: string | null
-  isProfileCompleted?: boolean
-  isApproved?: boolean
-  isOpen?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  user: Prisma.UserCreateNestedOneWithoutSellersInput
-  meals?: Prisma.MealCreateNestedManyWithoutSellerInput
-}
-
-export type SellerUncheckedCreateWithoutOrdersInput = {
-  id?: string
-  userId: string
-  restaurantName?: string | null
-  description?: string | null
-  address?: string | null
-  phoneNumber?: string | null
-  isProfileCompleted?: boolean
-  isApproved?: boolean
-  isOpen?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  meals?: Prisma.MealUncheckedCreateNestedManyWithoutSellerInput
-}
-
-export type SellerCreateOrConnectWithoutOrdersInput = {
-  where: Prisma.SellerWhereUniqueInput
-  create: Prisma.XOR<Prisma.SellerCreateWithoutOrdersInput, Prisma.SellerUncheckedCreateWithoutOrdersInput>
-}
-
-export type SellerUpsertWithoutOrdersInput = {
-  update: Prisma.XOR<Prisma.SellerUpdateWithoutOrdersInput, Prisma.SellerUncheckedUpdateWithoutOrdersInput>
-  create: Prisma.XOR<Prisma.SellerCreateWithoutOrdersInput, Prisma.SellerUncheckedCreateWithoutOrdersInput>
-  where?: Prisma.SellerWhereInput
-}
-
-export type SellerUpdateToOneWithWhereWithoutOrdersInput = {
-  where?: Prisma.SellerWhereInput
-  data: Prisma.XOR<Prisma.SellerUpdateWithoutOrdersInput, Prisma.SellerUncheckedUpdateWithoutOrdersInput>
-}
-
-export type SellerUpdateWithoutOrdersInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  restaurantName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isProfileCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isApproved?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneRequiredWithoutSellersNestedInput
-  meals?: Prisma.MealUpdateManyWithoutSellerNestedInput
-}
-
-export type SellerUncheckedUpdateWithoutOrdersInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  restaurantName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isProfileCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isApproved?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  meals?: Prisma.MealUncheckedUpdateManyWithoutSellerNestedInput
 }
 
 export type SellerCreateManyUserInput = {
@@ -788,7 +685,6 @@ export type SellerUpdateWithoutUserInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   meals?: Prisma.MealUpdateManyWithoutSellerNestedInput
-  orders?: Prisma.OrderUpdateManyWithoutSellerNestedInput
 }
 
 export type SellerUncheckedUpdateWithoutUserInput = {
@@ -803,7 +699,6 @@ export type SellerUncheckedUpdateWithoutUserInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   meals?: Prisma.MealUncheckedUpdateManyWithoutSellerNestedInput
-  orders?: Prisma.OrderUncheckedUpdateManyWithoutSellerNestedInput
 }
 
 export type SellerUncheckedUpdateManyWithoutUserInput = {
@@ -826,12 +721,10 @@ export type SellerUncheckedUpdateManyWithoutUserInput = {
 
 export type SellerCountOutputType = {
   meals: number
-  orders: number
 }
 
 export type SellerCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   meals?: boolean | SellerCountOutputTypeCountMealsArgs
-  orders?: boolean | SellerCountOutputTypeCountOrdersArgs
 }
 
 /**
@@ -851,13 +744,6 @@ export type SellerCountOutputTypeCountMealsArgs<ExtArgs extends runtime.Types.Ex
   where?: Prisma.MealWhereInput
 }
 
-/**
- * SellerCountOutputType without action
- */
-export type SellerCountOutputTypeCountOrdersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.OrderWhereInput
-}
-
 
 export type SellerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -873,7 +759,6 @@ export type SellerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   meals?: boolean | Prisma.Seller$mealsArgs<ExtArgs>
-  orders?: boolean | Prisma.Seller$ordersArgs<ExtArgs>
   _count?: boolean | Prisma.SellerCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["seller"]>
 
@@ -925,7 +810,6 @@ export type SellerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
 export type SellerInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   meals?: boolean | Prisma.Seller$mealsArgs<ExtArgs>
-  orders?: boolean | Prisma.Seller$ordersArgs<ExtArgs>
   _count?: boolean | Prisma.SellerCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type SellerIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -940,7 +824,6 @@ export type $SellerPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
     meals: Prisma.$MealPayload<ExtArgs>[]
-    orders: Prisma.$OrderPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1350,7 +1233,6 @@ export interface Prisma__SellerClient<T, Null = never, ExtArgs extends runtime.T
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   meals<T extends Prisma.Seller$mealsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Seller$mealsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MealPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  orders<T extends Prisma.Seller$ordersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Seller$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1808,30 +1690,6 @@ export type Seller$mealsArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   distinct?: Prisma.MealScalarFieldEnum | Prisma.MealScalarFieldEnum[]
-}
-
-/**
- * Seller.orders
- */
-export type Seller$ordersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Order
-   */
-  select?: Prisma.OrderSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Order
-   */
-  omit?: Prisma.OrderOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.OrderInclude<ExtArgs> | null
-  where?: Prisma.OrderWhereInput
-  orderBy?: Prisma.OrderOrderByWithRelationInput | Prisma.OrderOrderByWithRelationInput[]
-  cursor?: Prisma.OrderWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.OrderScalarFieldEnum | Prisma.OrderScalarFieldEnum[]
 }
 
 /**

@@ -8,7 +8,7 @@ import { globalErrorHandler } from "../middleware/error.middleware.js";
 const app = express()
 app.use(express.json())
 app.use(cors({
-    origin:"http://localhost:3000",
+    origin:["http://localhost:3000","http://192.168.0.30:3000"],
     credentials:true
 }))
 

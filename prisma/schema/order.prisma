@@ -10,8 +10,6 @@ model Order{
     id String @id @default(uuid())
     userId String
     user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-    sellerId String
-    seller Seller @relation(fields: [sellerId], references: [id], onDelete: Cascade)
     status Status @default(PENDING)
     totalPrice Int
     createdAt DateTime @default(now())

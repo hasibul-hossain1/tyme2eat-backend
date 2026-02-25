@@ -11,26 +11,18 @@ type CreateOrderPayload = {
 };
 
 const createOrder = async (payload: CreateOrderPayload) => {
-  const { userId, sellerId, items } = payload;
+  const { userId, items } = payload;
   if (!items.length) {
     throw new ApiError(400, "Order must be contain at least one item");
   }
 
   return prisma.$transaction(async (tx) => {
-    const seller = await tx.seller.findUniqueOrThrow({
-      where: {
-        id: sellerId,
-      },
-    });
-    if (!seller) throw new ApiError(404, "Seller not found");
-
     const mealIds = items.map((item) => item.mealId);
     const meals = await tx.meal.findMany({
       where: {
         id: {
           in: mealIds,
         },
-        sellerId,
       },
     });
 
@@ -46,7 +38,6 @@ const createOrder = async (payload: CreateOrderPayload) => {
     return tx.order.create({
       data: {
         userId,
-        sellerId,
         totalPrice,
         orderItems: {
           create: items.map((item) => {
