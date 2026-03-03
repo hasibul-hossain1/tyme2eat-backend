@@ -3,7 +3,7 @@ import { ApiError } from "../../utils/ApiError.js";
 
 type CreateOrderPayload = {
   userId: string;
-  sellerId: string;
+  address: string;
   items: {
     mealId: string;
     quantity: number;
@@ -11,7 +11,7 @@ type CreateOrderPayload = {
 };
 
 const createOrder = async (payload: CreateOrderPayload) => {
-  const { userId, items } = payload;
+  const { userId, items, address } = payload;
   if (!items.length) {
     throw new ApiError(400, "Order must be contain at least one item");
   }
@@ -37,6 +37,7 @@ const createOrder = async (payload: CreateOrderPayload) => {
 
     return tx.order.create({
       data: {
+        address,
         userId,
         totalPrice,
         orderItems: {
@@ -64,6 +65,18 @@ const getMyAllOrders = async (id: string) => {
     where: {
       userId: id,
     },
+    include: {
+      orderItems: {
+        include: {
+          meal: {
+            select: {
+              foodName: true,
+              imageUrl: true,
+            },
+          },
+        },
+      },
+    },
   });
   return data;
 };
@@ -75,22 +88,36 @@ const getOrderById = async ({
   orderId: string;
   userId: string;
 }) => {
-  const data = await prisma.$transaction(async(tx)=>{
-    const usersOrder = await tx.order.findUniqueOrThrow({
-      where:{
-        id:orderId
+  const data = await prisma.$transaction(async (tx) => {
+    await tx.order.findUniqueOrThrow({
+      where: {
+        id: orderId,
       },
-      select:{
-        userId:true
-      }
-    })
-  })
-  console.log(data);
+      select: {
+        userId: true,
+      },
+    });
+  });
   return data;
+};
+
+const orderedByCurrentUser = async ({userId, mealId}:{userId: string, mealId: string}) => {
+  const order = await prisma.order.findFirst({
+    where: {
+      userId,
+      orderItems: {
+        some: {
+          mealId,
+        },
+      },
+    },
+  });
+  return !!order;
 };
 
 export default {
   createOrder,
   getMyAllOrders,
   getOrderById,
+  orderedByCurrentUser
 };

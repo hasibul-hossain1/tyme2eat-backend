@@ -1,11 +1,12 @@
 import { RequestHandler } from "express";
 import orderService from "./order.service.js";
+import { success } from "better-auth";
 
 const createOrder: RequestHandler = async (req, res) => {
   const userId = req.user.id;
-  const sellerId = req.body.sellerId;
   const items = req.body.items;
-  const data = await orderService.createOrder({ items, sellerId, userId });
+  const address = req.body.address;
+  const data = await orderService.createOrder({ items, address, userId });
   res.status(201).json({
     successes: true,
     data,
@@ -26,16 +27,28 @@ const getMyAllOrders: RequestHandler = async (req, res) => {
 const getOrderById: RequestHandler = async (req, res) => {
   const orderId = req.params.id as string;
   const userId = req.user.id as string;
-  const data = await orderService.getOrderById({orderId,userId})
+  const data = await orderService.getOrderById({ orderId, userId });
   res.json({
-      success:true,
-      data,
-      message:"All order retrieved successfully"
-  })
+    success: true,
+    data,
+    message: "All order retrieved successfully",
+  });
+};
+
+const orderedByCurrentUser: RequestHandler = async (req, res) => {
+  const userId = req.user.id;
+  const mealId = req.params.id as string;
+  const isOrdered = await orderService.orderedByCurrentUser({ mealId, userId });
+  res.json({
+    success: true,
+    data: {isOrdered},
+    message: "The Response Retrieved Successfully",
+  });
 };
 
 export default {
   createOrder,
   getMyAllOrders,
   getOrderById,
+  orderedByCurrentUser,
 };

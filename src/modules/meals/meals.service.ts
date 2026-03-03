@@ -170,9 +170,21 @@ const getAllCategories = async () => {
   return categories;
 };
 
+const getCartMeals = async (payload:string[]) => {
+  const data = await prisma.meal.findMany({
+    where:{
+      id:{
+        in:payload
+      }
+    }
+  })
+  return data
+}
+
 export default {
   getAllMeals,
   getSingleMealById,
   createReview,
-  getAllCategories
+  getAllCategories,
+  getCartMeals
 };

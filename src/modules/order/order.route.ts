@@ -9,7 +9,9 @@ const router = Router()
 router.post('/',authMiddleware(Role.CUSTOMER),catchAsync(orderController.createOrder))
 
 router.get('/',authMiddleware(Role.CUSTOMER),catchAsync(orderController.getMyAllOrders))
+// isThisNeeded
+router.get('/:id',authMiddleware(Role.CUSTOMER),catchAsync(orderController.getOrderById))
 
-router.get('/',authMiddleware(Role.CUSTOMER),catchAsync(orderController.getMyAllOrders))
+router.get('/me/:id',authMiddleware(Role.CUSTOMER),catchAsync(orderController.orderedByCurrentUser))
 
 export default router
