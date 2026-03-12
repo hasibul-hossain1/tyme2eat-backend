@@ -20,7 +20,6 @@ const signUpAsProvider: RequestHandler = async (req, res) => {
 
 const getSingleSellerWithMenu: RequestHandler = async (req, res) => {
   const id = req.params.id as string;
-  console.log(id);
   const data = await sellerService.getSingleSellerWithMenu(id);
   res.status(200).json({
     success: true,
@@ -115,6 +114,27 @@ const updateOrderStatus: RequestHandler = async (req, res) => {
   });
 };
 
+const myMeals: RequestHandler = async (req, res) => {
+  const userId = req.user.id;
+  const data = await sellerService.myMeals({ userId });
+  res.status(200).json({
+    success: true,
+    data,
+    message: "Retrieved my meals successfully",
+  });
+};
+
+const getAllOrder:RequestHandler= async (req,res) => {
+  const userId = req.user.id
+  const data = await sellerService.getAllOrder({userId})
+  res.json({
+    success:true,
+    data,
+    message:"Retrieved all orders successfully"
+  })
+}
+
+
 export default {
   signUpAsProvider,
   getAllSellers,
@@ -123,4 +143,6 @@ export default {
   updateMeal,
   deleteMeal,
   updateOrderStatus,
+  myMeals,
+  getAllOrder
 };

@@ -39,8 +39,21 @@ const updateUserStatus:RequestHandler = async (req,res) => {
     })
 }
 
+const updateUserProfile:RequestHandler = async (req,res) => {
+    const id = req.user.id
+    const name = req.body.name
+    const image = req.body.image
+    const update = await userService.updateUserProfile({userId:id,name,image})
+    res.json({
+        success:true,
+        data:update,
+        message:"User profile updated successfully"
+    })
+}
+
 export default {
     aboutMe,
     getAllUsers,
-    updateUserStatus
+    updateUserStatus,
+    updateUserProfile
 }
