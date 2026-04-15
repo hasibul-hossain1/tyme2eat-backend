@@ -112,7 +112,7 @@ const updateOrderStatus: RequestHandler = async (req, res) => {
     data,
     message: "Order status updated successfully",
   });
-};
+}
 
 const myMeals: RequestHandler = async (req, res) => {
   const userId = req.user.id;
