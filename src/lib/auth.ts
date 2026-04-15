@@ -10,7 +10,7 @@ export const auth = betterAuth({
     provider: "postgresql",
   }),
   baseURL: config.frontend_url,
-  basePath: "/api/v1/auth",
+  basePath: "/api/auth",
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: true,

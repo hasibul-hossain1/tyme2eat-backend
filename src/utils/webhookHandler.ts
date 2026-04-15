@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { prisma } from "../lib/prisma";
-import stripe from "../lib/stripe";
+import { prisma } from "../lib/prisma.js";
+import stripe from "../lib/stripe.js";
 
 export const webhookHandler = async (req: Request, res: Response) => {
   const sig = req.headers["stripe-signature"];

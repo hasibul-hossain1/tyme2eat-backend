@@ -13,7 +13,6 @@ const app = express()
 app.post("/webhook", express.raw({ type: "application/json" }), webhookHandler)
 
 
-app.use(express.json())
 app.use(cookieParser());
 app.use(cors({
     origin:["http://localhost:3000","http://192.168.0.30:3000","https://tyme2eat.vercel.app"],
@@ -24,10 +23,12 @@ app.use((req,res,next)=>{
     console.log(`[${new Date().toISOString()}] ${req.method} ${req.originalUrl}`);
     next()
 })
+app.all('/api/auth/{*any}', toNodeHandler(auth));
 
+
+app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
-app.all('/api/v1/auth/{*any}', toNodeHandler(auth));
 
 
 app.use('/api/v1',router)
