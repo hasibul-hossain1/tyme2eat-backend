@@ -1,5 +1,6 @@
 import { afterEach } from "node:test";
 import { prisma } from "../../lib/prisma.js";
+import { auth } from "../../lib/auth.js";
 
 const aboutMe = async (userId:string) => {
     const user = await prisma.user.findUniqueOrThrow({
@@ -51,6 +52,15 @@ const updateUserProfile = async ({
   return updated
 }
 
+const getSession = async (cookie:any,sessionToken:string) => {
+    const data = await auth.api.getSession({
+        headers: new Headers({
+            cookie: cookie ?? `session_token=${sessionToken}`
+        })
+    })
+    return data
+}
+
 
 
 
@@ -58,5 +68,6 @@ export default {
     aboutMe,
     getAllUsers,
     updateUserStatus,
-    updateUserProfile
+    updateUserProfile,
+    getSession
 }

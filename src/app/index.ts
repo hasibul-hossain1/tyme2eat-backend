@@ -23,7 +23,7 @@ app.use((req,res,next)=>{
     console.log(`[${new Date().toISOString()}] ${req.method} ${req.originalUrl}`);
     next()
 })
-app.all('/api/auth/{*any}', toNodeHandler(auth));
+app.all('/api/v1/auth/{*any}', toNodeHandler(auth));
 
 
 app.use(express.json())

@@ -14,4 +14,7 @@ router.patch('/:id',authMiddleware(Role.ADMIN),catchAsync(userController.updateU
 
 router.post("/update",authMiddleware(),catchAsync(userController.updateUserProfile))
 
+router.get("/session",authMiddleware(),catchAsync(userController.getSession))
+
+
 export default router

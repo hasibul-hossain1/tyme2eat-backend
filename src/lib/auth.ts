@@ -9,8 +9,8 @@ export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
-  baseURL: config.frontend_url,
-  basePath: "/api/auth",
+  baseURL: process.env.NOURL as string,
+  basePath: "/api/v1/auth",
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: true,
@@ -43,7 +43,6 @@ export const auth = betterAuth({
           httpOnly: true,
           secure: true,
           sameSite: "none",
-          partitioned: true,
         },
       },
       state: {
@@ -52,7 +51,6 @@ export const auth = betterAuth({
           httpOnly: true,
           secure: true,
           sameSite: "none",
-          partitioned: true,
         },
       },
     },
