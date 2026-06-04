@@ -9,13 +9,23 @@ export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
-  baseURL: process.env.NOURL as string,
+  baseURL: process.env.BETTER_AUTH_URL || "http://localhost:5000",
   basePath: "/api/v1/auth",
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: true,
   },
-  trustedOrigins: ["http://localhost:3000", "https://tyme2eat.vercel.app"],
+  trustedOrigins: [
+    process.env.CLIENT_URL || "http://localhost:3000",
+    "http://localhost:3000",
+    "https://tyme2eat.vercel.app",
+  ],
+  session: {
+    cookieCache: {
+      enabled: true,
+      maxAge: 60 * 5, // 5 minutes
+    },
+  },
   emailVerification: {
     sendVerificationEmail: async ({ user, url }) => {
       console.log("mail sent");
@@ -35,25 +45,5 @@ export const auth = betterAuth({
       },
     },
   },
-  advanced: {
-    cookies: {
-      session_token: {
-        name: "session_token",
-        attributes: {
-          httpOnly: true,
-          secure: true,
-          sameSite: "none",
-        },
-      },
-      state: {
-        name: "session_token",
-        attributes: {
-          httpOnly: true,
-          secure: true,
-          sameSite: "none",
-        },
-      },
-    },
-  },
-  plugins:[oAuthProxy()]
+  plugins: [oAuthProxy()],
 });

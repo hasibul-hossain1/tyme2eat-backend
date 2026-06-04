@@ -6,6 +6,7 @@ import cors from 'cors'
 import { globalErrorHandler } from "../middleware/error.middleware.js";
 import { webhookHandler } from "../utils/webhookHandler.js";
 import cookieParser from "cookie-parser";
+import { requestLogger } from "../middleware/requestLogger.js";
 
 const app = express()
 
@@ -18,12 +19,15 @@ app.use(cors({
     origin:["http://localhost:3000","http://192.168.0.30:3000","https://tyme2eat.vercel.app"],
     credentials:true
 }))
+app.set("trust proxy", true)
+
+// app.use(requestLogger)
 
 app.use((req,res,next)=>{
     console.log(`[${new Date().toISOString()}] ${req.method} ${req.originalUrl}`);
     next()
 })
-app.all('/api/v1/auth/{*any}', toNodeHandler(auth));
+app.all('/api/v1/auth/*any', toNodeHandler(auth));
 
 
 app.use(express.json())

@@ -200,7 +200,7 @@ export type SellerGroupByOutputType = {
   _max: SellerMaxAggregateOutputType | null
 }
 
-type GetSellerGroupByPayload<T extends SellerGroupByArgs> = Prisma.PrismaPromise<
+export type GetSellerGroupByPayload<T extends SellerGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<SellerGroupByOutputType, T['by']> &
       {
@@ -1469,6 +1469,11 @@ export type SellerFindManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Skip the first `n` Sellers.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of Sellers.
+   */
   distinct?: Prisma.SellerScalarFieldEnum | Prisma.SellerScalarFieldEnum[]
 }
 

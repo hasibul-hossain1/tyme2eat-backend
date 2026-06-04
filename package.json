@@ -29,13 +29,14 @@
   "dependencies": {
     "@prisma/adapter-pg": "^7.3.0",
     "@prisma/client": "^7.3.0",
-    "better-auth": "^1.4.17",
+    "better-auth": "^1.6.11",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
     "nodemailer": "^7.0.13",
     "pg": "^8.17.2",
-    "stripe": "^22.0.1"
+    "stripe": "^22.0.1",
+    "vercel": "^54.2.0"
   }
 }
