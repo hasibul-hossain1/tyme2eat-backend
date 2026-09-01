@@ -1,7 +1,6 @@
 import { Router } from "express";
 import { authMiddleware } from "../../middleware/auth.middleware.js";
 import { Role } from "../../generated/prisma/enums.js";
-import { date, success } from "better-auth";
 
 const router = Router()
 

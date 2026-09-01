@@ -1,36 +1,50 @@
 import { Request, Response, NextFunction } from "express";
-import { auth } from "../lib/auth.js";
-import { Role } from "../generated/prisma/enums.js";
-import { ApiError } from "../utils/ApiError.js";
-export function authMiddleware(...roles: Role[]) {
+import { JwtPayload, verifyAccessToken } from "../utils/jwt";
+import { prisma } from "../lib/prisma";
+import { Role } from "../generated/prisma/enums";
+
+export const authMiddleware = (...roles: Role[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return res.status(401).json({ success: false, message: "Unauthorized" });
+    }
+
+    const token = authHeader.split(" ")[1];
+
+    if (!token) {
+      return res.status(401).json({ success: false, message: "Unauthorized" });
+    }
+
     try {
-      const session = await auth.api.getSession({
-        headers: req.headers,
+      const decoded = verifyAccessToken(token) as JwtPayload;
+      const user = await prisma.user.findUnique({
+        where: {
+          id: decoded.userId,
+        },
+        select: {
+          id: true,
+          email: true,
+          role: true,
+          isActive: true,
+        },
       });
-      if (!session) {
-        throw new ApiError(401, "Unauthorized");
+
+      if (!user || !user.isActive) {
+        return res.status(401).json({ success: false, message: "Unauthorized" });
       }
-      if (!session.user.emailVerified) {
-        throw new ApiError(
-          403,
-          "Email not verified, Please verify your email first!",
-        );
+
+      if (roles.length > 0 && !roles.includes(user.role)) {
+        return res.status(403).json({ success: false, message: "Forbidden" });
       }
-      req.user = {
-        id: session.user.id,
-        name: session.user.name,
-        email: session.user.email,
-        role: session.user.role as Role,
-        isActive: session.user.isActive as boolean,
-        emailVerified: session.user.emailVerified,
-      };
-      if (roles.length > 0 && !roles?.includes(req.user.role)) {
-        throw new ApiError(401, "Unauthorized");
-      }
-      next();
+
+      req.user = user;
+      return next();
     } catch (error) {
-      next(error);
+      return res.status(401).json({ success: false, message: "Unauthorized" });
     }
   };
-}
+};
+
+export const authenticate = authMiddleware;

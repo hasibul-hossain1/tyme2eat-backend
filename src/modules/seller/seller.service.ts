@@ -1,7 +1,5 @@
-import { success } from "better-auth";
 import { Meal } from "../../generated/prisma/client.js";
 import { Role, Status } from "../../generated/prisma/enums.js";
-import { auth } from "../../lib/auth.js";
 import { prisma } from "../../lib/prisma.js";
 import { ApiError } from "../../utils/ApiError.js";
 
@@ -14,20 +12,21 @@ const signUpAsProvider = async ({
   email: string;
   password: string;
 }) => {
-  const data = await auth.api.signUpEmail({
-    body: {
-      email: email,
-      password: password,
-      name: name,
-    },
-  });
-  if (!data.user.id) {
+  const user = await prisma.user.create({
+    data: {
+      name,
+      email,
+      password,
+      role: Role.SELLER,
+    }
+  })
+  if (!user.id) {
     throw new Error("Unable to create seller account");
   }
 
   await prisma.$transaction(async (tx) => {
     const exists = await tx.seller.findUnique({
-      where: { userId: data.user.id },
+      where: { userId: user.id },
     });
 
     if (exists) {
@@ -36,7 +35,7 @@ const signUpAsProvider = async ({
 
     await tx.user.update({
       where: {
-        id: data.user.id,
+        id: user.id,
       },
       data: {
         role: Role.SELLER,
@@ -45,12 +44,12 @@ const signUpAsProvider = async ({
 
     await tx.seller.create({
       data: {
-        userId: data.user.id,
+        userId: user.id,
       },
     });
   });
   const updatedUser = await prisma.user.findUnique({
-    where: { id: data.user.id },
+    where: { id: user.id },
     include: { sellers: true },
   });
   return updatedUser;

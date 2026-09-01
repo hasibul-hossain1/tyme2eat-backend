@@ -1,7 +1,6 @@
 import { RequestHandler } from "express";
 import mealsService from "./meals.service.js";
 import { paginationSortingHelper } from "../../helper/paginationSortingHelper.js";
-import { success } from "better-auth";
 
 const getAllMeals: RequestHandler = async (req, res) => {
   const search = req.query.search as string | undefined;

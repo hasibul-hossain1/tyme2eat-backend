@@ -51,21 +51,9 @@ const updateUserProfile:RequestHandler = async (req,res) => {
     })
 }
 
-const getSession:RequestHandler = async (req,res) => {
-    const cookie = req.headers.cookie
-    const sessionToken = req.cookies.session_token
-    const data = await userService.getSession(cookie,sessionToken)
-    res.json({
-        success:true,
-        data,
-        message:"Session retrieved successfully"
-    })
-}
-
 export default {
     aboutMe,
     getAllUsers,
     updateUserStatus,
     updateUserProfile,
-    getSession
 }

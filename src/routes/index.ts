@@ -5,6 +5,7 @@ import userRouter from "../modules/user/user.route.js";
 import mealRouter from "../modules/meals/meals.route.js";
 import orderRouter from "../modules/order/order.route.js"
 import adminRouter from "../modules/admin/admin.route.js"
+import authRouter from "../modules/auth/auth.route.js";
 
 const router = Router();
 
@@ -37,6 +38,10 @@ const routes: RouteType[] = [
   {
     path:"/admin",
     route:adminRouter
+  },
+  {
+    path:"/auth",
+    route:authRouter
   }
 ];
 

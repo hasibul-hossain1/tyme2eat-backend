@@ -15,13 +15,13 @@ import * as path from 'node:path'
 import { fileURLToPath } from 'node:url'
 globalThis['__dirname'] = path.dirname(fileURLToPath(import.meta.url))
 
-import * as runtime from "@prisma/client/runtime/client.js"
-import * as $Enums from "./enums.js"
-import * as $Class from "./internal/class.js"
-import * as Prisma from "./internal/prismaNamespace.js"
+import * as runtime from "@prisma/client/runtime/client"
+import * as $Enums from "./enums"
+import * as $Class from "./internal/class"
+import * as Prisma from "./internal/prismaNamespace"
 
-export * as $Enums from './enums.js'
-export * from "./enums.js"
+export * as $Enums from './enums'
+export * from "./enums"
 /**
  * ## Prisma Client
  * 
@@ -47,20 +47,10 @@ export { Prisma }
  */
 export type User = Prisma.UserModel
 /**
- * Model Session
+ * Model RefreshToken
  * 
  */
-export type Session = Prisma.SessionModel
-/**
- * Model Account
- * 
- */
-export type Account = Prisma.AccountModel
-/**
- * Model Verification
- * 
- */
-export type Verification = Prisma.VerificationModel
+export type RefreshToken = Prisma.RefreshTokenModel
 /**
  * Model Meal
  * 

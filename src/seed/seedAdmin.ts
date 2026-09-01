@@ -1,6 +1,5 @@
 import config from "../config/index.js";
 import { Role } from "../generated/prisma/enums.js";
-import { auth } from "../lib/auth.js";
 import { prisma } from "../lib/prisma.js";
 
 export async function seedAdmin() {
@@ -13,26 +12,17 @@ export async function seedAdmin() {
 
   const existingAdmin = await prisma.user.findUnique({
     where: { email: admin.email },
-    select: { id: true, emailVerified: true },
+    select: { id: true},
   });
 
   if (!existingAdmin) {
     console.log("Default admin not found, creating...");
-    const createAdmin = await auth.api.signUpEmail({ body: admin });
-    if (!createAdmin.user.id) throw new Error("Failed to create admin");
-
-    await prisma.user.update({
-      where: { id: createAdmin.user.id },
-      data: { emailVerified: true },
+    const createAdmin = await prisma.user.create({
+      data: admin,
     });
+    if (!createAdmin.id) throw new Error("Failed to create admin");
 
     console.log("Default admin created successfully");
-  } else if (!existingAdmin.emailVerified) {
-    await prisma.user.update({
-      where: { id: existingAdmin.id },
-      data: { emailVerified: true },
-    });
-    console.log("Default admin email verified");
   } else {
     // console.log("Default admin already exists and verified");
   }

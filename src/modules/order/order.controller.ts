@@ -1,6 +1,5 @@
 import { RequestHandler } from "express";
 import orderService from "./order.service.js";
-import { success } from "better-auth";
 
 const createOrder: RequestHandler = async (req, res) => {
   const userId = req.user.id;
